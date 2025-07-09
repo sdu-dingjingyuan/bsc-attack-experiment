@@ -22,12 +22,12 @@ RUN wget https://go.dev/dl/go1.21.10.linux-amd64.tar.gz && \
 ENV PATH="/usr/local/go/bin:${PATH}"
 
 # Install Foundry 
-# RUN curl -L https://foundry.paradigm.xyz | bash && \
-#     /root/.foundry/bin/foundryup
-# ENV PATH="/root/.foundry/bin:${PATH}"
-# too slow, can use pre-installed foundry
-COPY .foundry /root/.foundry 
+RUN curl -L https://foundry.paradigm.xyz | bash && \
+    /root/.foundry/bin/foundryup
 ENV PATH="/root/.foundry/bin:${PATH}"
+# too slow, can use pre-installed foundry
+# COPY .foundry /root/.foundry 
+# ENV PATH="/root/.foundry/bin:${PATH}"
 
 # Install Poetry (Ubuntu 24.04+ needs --break-system-packages)
 RUN pip3 install --break-system-packages -i https://pypi.tuna.tsinghua.edu.cn/simple poetry
