@@ -16,18 +16,18 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Go 1.21
-# RUN wget https://go.dev/dl/go1.21.10.linux-amd64.tar.gz && \
-#     tar -C /usr/local -xzf go1.21.10.linux-amd64.tar.gz && \
-#     rm go1.21.10.linux-amd64.tar.gz
-# ENV PATH="/usr/local/go/bin:${PATH}"
+RUN wget https://go.dev/dl/go1.21.10.linux-amd64.tar.gz && \
+    tar -C /usr/local -xzf go1.21.10.linux-amd64.tar.gz && \
+    rm go1.21.10.linux-amd64.tar.gz
+ENV PATH="/usr/local/go/bin:${PATH}"
 
 # Install Foundry 
-# RUN curl -L https://foundry.paradigm.xyz | bash && \
-#     /root/.foundry/bin/foundryup
-# ENV PATH="/root/.foundry/bin:${PATH}"
-# too slow, can use pre-installed foundry
-COPY .foundry /root/.foundry 
+RUN curl -L https://foundry.paradigm.xyz | bash && \
+    /root/.foundry/bin/foundryup
 ENV PATH="/root/.foundry/bin:${PATH}"
+# too slow, can use pre-installed foundry
+# COPY .foundry /root/.foundry 
+# ENV PATH="/root/.foundry/bin:${PATH}"
 
 # Install Poetry (Ubuntu 24.04+ needs --break-system-packages)
 RUN pip3 install --break-system-packages -i https://pypi.tuna.tsinghua.edu.cn/simple poetry
@@ -36,18 +36,21 @@ RUN pip3 install --break-system-packages -i https://pypi.tuna.tsinghua.edu.cn/si
 WORKDIR /app
 
 # Copy attack-3-bootnode-code.zip
-#COPY code/attack-3-bootnode-code.zip /app/code/attack-3-bootnode-code.zip
+COPY code/attack-3-bootnode-code.zip /app/code/attack-3-bootnode-code.zip
 # Copy node-deploy.zip
 COPY node-deploy.zip /app/node-deploy.zip
 # Copy query directory
 # can use pre-built query binary
 COPY query /app/query
 
+RUN cd /app/query && \
+    go build ./
+
 # Unzip attack-3-bootnode-code.zip, build geth binary
-# RUN unzip /app/code/attack-3-bootnode-code.zip -d /app/code/ && \
-#     cd /app/code/attack-3-bootnode-code && make geth
+RUN unzip /app/code/attack-3-bootnode-code.zip -d /app/code/ && \
+    cd /app/code/attack-3-bootnode-code && make geth
 # can use pre-built geth binary
-COPY code/attack-3-bootnode-code/build/bin/geth /app/code/attack-3-bootnode-code/build/bin/geth
+# COPY code/attack-3-bootnode-code/build/bin/geth /app/code/attack-3-bootnode-code/build/bin/geth
 
 # Unzip node-deploy.zip, move geth to node-deploy/bin, set up Python venv, install requirements, run cluster script
 # use Tsinghua mirror

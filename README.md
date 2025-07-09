@@ -3,34 +3,36 @@
 ## Introduction
 
 This repository contains the implementation and artifacts for the paper:  
-**[USENIX25] Does Finality Gadget Finalize Your Block? A Case Study of Binance Consensus**. 
+**[USENIX25] Does Finality Gadget Finalize Your Block? A Case Study of Binance Consensus**.
 
-The paper analyzes the consensus protocol of BNB Smart Chain (BSC). Since mid-2023, BSC has integrated a *Fast Finality (FF)* mechanism, where validators vote to finalize block order. BSC claims that its FF mechanism can finalize blocks in O(1) time, simultaneously reducing latency and improving stability. The paper presents three attacks, showing BSC fails to finalize blocks in constant time and may even simply fail to achieve liveness.
+The paper analyzes the consensus protocol of BNB Smart Chain (BSC). Since mid-2023, BSC has integrated a _Fast Finality (FF)_ mechanism, where validators vote to finalize block order. BSC claims that its FF mechanism can finalize blocks in O(1) time, simultaneously reducing latency and improving stability. The paper presents three attacks, showing BSC fails to finalize blocks in constant time and may even simply fail to achieve liveness.
 
 This repository is intended to support both **functionality** and **reproducibility** evaluation, enabling reviewers and researchers to replicate all key experiments and validate the claims presented in the paper.
 
 This repository provides an extended and actively maintained version of our artifact archived at [Zenodo](https://zenodo.org/records/15552871).
 
-## 🚀 Quick Access 
+## 🚀 Quick Access
+
 All raw data and logs are available in the `/test-data/` directory.
 
-| **Output Results (TXT)**               | **Chain Data (ZIP)**                              | **Description**                                                                 |
-|----------------------------------------|-------------------------------------------------|---------------------------------------------------------------------------------|
-| `attack-1-reward.txt`                  | `node-attack-1-reward.zip`                      | Reward details for Attack 1.                                                   |
-| `attack-1.txt`                         | `node-attack-1.zip`                             | Details and logs for Attack 1.                                                  |
-| `attack-2-reward.txt`                  | `node-attack-2-reward.zip`                      | Reward details for Attack 2.                                                   |
-| `attack-2.txt`                         | `node-attack-2.zip`                             | Details and logs for Attack 2.                                                  |
-| `attack-3-bootnode-25.txt`             | `node-attack-3-bootnode-25.zip`                 | Details and logs for Attack 3: using bootnode-based connection with a 25ms delay.                  |
-| `attack-3-bootnode-50-reward.txt`      | `node-attack-3-bootnode-50-reward.zip`          | Reward details for Attack 3: using bootnode-based connection with a 50ms delay.                   |
-| `attack-3-bootnode-50.txt`             | `node-attack-3-bootnode-50.zip`                 | Details and logs for Attack 3: using bootnode-based connection with a 50ms delay.                  |
-| `attack-3-bootnode-75.txt`             | `node-attack-3-bootnode-75.zip`                 | Details and logs for Attack 3: using bootnode-based connection with a 75ms delay.                  |
-| `attack-3-staticnode-25.txt`           | `node-attack-3-staticnode-25.zip`               | Details and logs for Attack 3: using full connection with a 25ms delay.                |
-| `attack-3-staticnode-50-reward.txt`    | `node-attack-3-staticnode-50-reward.zip`        | Reward details for Attack 3: using full connection with a 50ms delay.                 |
-| `attack-3-staticnode-50.txt`           | `node-attack-3-staticnode-50.zip`               | Details and logs for Attack 3: using full connection with a 50ms delay.                |
-| `attack-3-staticnode-75.txt`           | `node-attack-3-staticnode-75.zip`               | Details and logs for Attack 3: using full connection with a 75ms delay.                |
-| `normal-reward.txt`                    | `node-normal-reward.zip`                        | Reward details for benchmark.                                           |
+| **Output Results (TXT)**            | **Chain Data (ZIP)**                     | **Description**                                                                   |
+| ----------------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------- |
+| `attack-1-reward.txt`               | `node-attack-1-reward.zip`               | Reward details for Attack 1.                                                      |
+| `attack-1.txt`                      | `node-attack-1.zip`                      | Details and logs for Attack 1.                                                    |
+| `attack-2-reward.txt`               | `node-attack-2-reward.zip`               | Reward details for Attack 2.                                                      |
+| `attack-2.txt`                      | `node-attack-2.zip`                      | Details and logs for Attack 2.                                                    |
+| `attack-3-bootnode-25.txt`          | `node-attack-3-bootnode-25.zip`          | Details and logs for Attack 3: using bootnode-based connection with a 25ms delay. |
+| `attack-3-bootnode-50-reward.txt`   | `node-attack-3-bootnode-50-reward.zip`   | Reward details for Attack 3: using bootnode-based connection with a 50ms delay.   |
+| `attack-3-bootnode-50.txt`          | `node-attack-3-bootnode-50.zip`          | Details and logs for Attack 3: using bootnode-based connection with a 50ms delay. |
+| `attack-3-bootnode-75.txt`          | `node-attack-3-bootnode-75.zip`          | Details and logs for Attack 3: using bootnode-based connection with a 75ms delay. |
+| `attack-3-staticnode-25.txt`        | `node-attack-3-staticnode-25.zip`        | Details and logs for Attack 3: using full connection with a 25ms delay.           |
+| `attack-3-staticnode-50-reward.txt` | `node-attack-3-staticnode-50-reward.zip` | Reward details for Attack 3: using full connection with a 50ms delay.             |
+| `attack-3-staticnode-50.txt`        | `node-attack-3-staticnode-50.zip`        | Details and logs for Attack 3: using full connection with a 50ms delay.           |
+| `attack-3-staticnode-75.txt`        | `node-attack-3-staticnode-75.zip`        | Details and logs for Attack 3: using full connection with a 75ms delay.           |
+| `normal-reward.txt`                 | `node-normal-reward.zip`                 | Reward details for benchmark.                                                     |
 
 ## 📦 Recommended Setup: Docker
+
 We strongly recommend using our prebuilt Docker images to reproduce all results reliably and efficiently.
 
 ### Prerequisites
@@ -38,52 +40,58 @@ We strongly recommend using our prebuilt Docker images to reproduce all results 
 - Docker Engine: version ≥ **v27.5.1**
 - Docker Memory: **16 GB+** recommended
 
-### Running attack 1 
+### Running attack 1
+
 ```bash
 touch 1.txt && docker run -it --rm -v ./1.txt:/app/query/21.txt erick785/bsc-attack-1:latest
 ```
-The results generated by the Docker container will be saved to the file 1.txt. 
+
+The results generated by the Docker container will be saved to the file 1.txt.
 
 ### Running attack 2
+
 ```bash
 touch 2.txt && docker run -it --rm -v ./2.txt:/app/query/21.txt erick785/bsc-attack-2:latest
 ```
-The results generated by the Docker container will be saved to the file 2.txt. 
+
+The results generated by the Docker container will be saved to the file 2.txt.
 
 ### Running attack 3 (bootnode connection mode)
+
 ```bash
 touch 3.1.txt && docker run -it --rm -v ./3.1.txt:/app/query/21.txt -e DELAY_INTERVAL_MS=25 erick785/bsc-attack-3-bootnode:latest
 ```
-**Note:** DELAY_INTERVAL_MS field can be set to 25, 50, or 75, indicating three separate experiments for the bootnode mode. 
 
-The results generated by the Docker container will be saved to the file 3.1.txt. 
+**Note:** DELAY_INTERVAL_MS field can be set to 25, 50, or 75, indicating three separate experiments for the bootnode mode.
+
+The results generated by the Docker container will be saved to the file 3.1.txt.
 
 ### Running attack 3 (full connection mode)
+
 ```bash
 touch 3.2.txt && docker run -it --rm -v ./3.2.txt:/app/query/21.txt -e DELAY_INTERVAL_MS=25 erick785/bsc-attack-3-staticnode:latest
 ```
 
-**Note:** DELAY_INTERVAL_MS field can be set to 25, 50, or 75, indicating three separate experiments for the connection mode. 
+**Note:** DELAY_INTERVAL_MS field can be set to 25, 50, or 75, indicating three separate experiments for the connection mode.
 
-The results generated by the Docker container will be saved to the file 3.2.txt. 
+The results generated by the Docker container will be saved to the file 3.2.txt.
 
 ## 🛠️ Optional: Manual Build & Execution
 
 We also provide a fully manual setup method for users or reviewers who prefer to inspect and customize the testing environment (See [Appendix](#appendix)).
 
-##  🧪 Attack Success Criteria
+## 🧪 Attack Success Criteria
 
 Each line in the output file (e.g., `1.txt`, `2.txt`, `3.1.txt`, etc.) is a comma-separated triple: (`LatestBlock`), (`FinalizedBlock`), (`Attested`).
 
 Data field definitions
- **Field Name**                              | **Description**                                                                 |
+**Field Name** | **Description** |
 |-------------------------------------------------|---------------------------------------------------------------------------------|
-| The latest block height (`LatestBlock`)                      | The number of the latest block that has been generated by the current node.    |
- Finalized block height (`FinalizedBlock`)                    | Block number that has been finalized.    |
-| Attestation of block header (`Attested`)                    | `true` means that the block received a vote attestation, `false` means that it did not.    |
+| The latest block height (`LatestBlock`) | The number of the latest block that has been generated by the current node. |
+Finalized block height (`FinalizedBlock`) | Block number that has been finalized. |
+| Attestation of block header (`Attested`) | `true` means that the block received a vote attestation, `false` means that it did not. |
 
- > \* All attacks are triggered at block height **250** unless otherwise noted.
-
+> \* All attacks are triggered at block height **250** unless otherwise noted.
 
 ### For attack 1
 
@@ -91,10 +99,11 @@ Data field definitions
 Demonstrate that BSC’s FF mechanism becomes sluggish under attack, slowing finalization but not entirely failing.
 
 **Success indicators:**
--   Before slot 250 (From 210-250): Finalized block always lags 2 blocks behind the latest block (normal behavior).
--   After slot 250: Finalized block height stops increasing for multiple slots.
--   Eventually: Finalization resumes after a long stall.
-    
+
+- Before slot 250 (From 210-250): Finalized block always lags 2 blocks behind the latest block (normal behavior).
+- After slot 250: Finalized block height stops increasing for multiple slots.
+- Eventually: Finalization resumes after a long stall.
+
 **Sample pattern:**
 
 ```
@@ -111,7 +120,7 @@ Demonstrate that BSC’s FF mechanism becomes sluggish under attack, slowing fin
 267,248,false
 268,248,true
 269,267,true
-270,268,true # Finalized blocks catch up to 268, indicating a gradual recovery of consensus 
+270,268,true # Finalized blocks catch up to 268, indicating a gradual recovery of consensus
 271,269,true
 272,269,false
 273,269,false
@@ -122,20 +131,21 @@ Demonstrate that BSC’s FF mechanism becomes sluggish under attack, slowing fin
 291,289,true
 ...
 ```
-**Note:** This experiment is probabilistic. The exact data may vary across runs. However, the observed trend remains consistent: before the attack is launched, the difference between the latest block height and the finalized block height consistently stays at 2(e.g., [247,245], [248, 246], [249, 247]..).  After initiating the attack at slot 250, this gap begins to widen. The finality of blocks no longer progresses in step with the increasing latest block height. This observation aligns with our claims that Attack 1 slows down the finality of blocks.
 
-###  For attack 2
+**Note:** This experiment is probabilistic. The exact data may vary across runs. However, the observed trend remains consistent: before the attack is launched, the difference between the latest block height and the finalized block height consistently stays at 2(e.g., [247,245], [248, 246], [249, 247]..). After initiating the attack at slot 250, this gap begins to widen. The finality of blocks no longer progresses in step with the increasing latest block height. This observation aligns with our claims that Attack 1 slows down the finality of blocks.
 
+### For attack 2
 
 **Objective:**  
 Show that the finalization process halts completely after attack launch.
 
 **Success Indicators:**
 
--   After slot 250: Finalized block height remains **frozen** at its pre-attack value (e.g., 248).
--   No future blocks reach finality during the remainder of the test.   
+- After slot 250: Finalized block height remains **frozen** at its pre-attack value (e.g., 248).
+- No future blocks reach finality during the remainder of the test.
 
 **Sample Pattern:**
+
 ```
 ...
 248,246,true
@@ -162,17 +172,18 @@ Show that the finalization process halts completely after attack launch.
 
 **Note:** Before launching the attack, the difference between the latest block height and the finalized block height consistently remained at 2. After we launch the attack at slot 250, we can observe that the last finalized block height remains fixed at 248, indicating that none of the subsequent blocks can receive more than $N − f$ matching attestations. As a result, no new block can be finalized. This observation supports our claims that Attack 2 causes a liveness failure.
 
-###  For attack 3
+### For attack 3
 
 **Objective:**  
 Demonstrate that FF can be stalled for an extended period.
 
 **Success Indicators (for each delay setting):**
 
--   After attack start: Finalized block height stops continuously increasing while the latest block keeps advancing.
--   Eventually: Finalized block resumes increasing but with a noticeable delay.
-    
+- After attack start: Finalized block height stops continuously increasing while the latest block keeps advancing.
+- Eventually: Finalized block resumes increasing but with a noticeable delay.
+
 **Sample Pattern:**
+
 ```
 ...
 438,429,false
@@ -187,7 +198,7 @@ Demonstrate that FF can be stalled for an extended period.
 447,429,false
 448,429,false
 449,429,false
-450,429,false # At block 450, the finalized block height remains 429 (21 blocks delayed)  
+450,429,false # At block 450, the finalized block height remains 429 (21 blocks delayed)
 451,429,false
 452,429,false
 453,429,false
@@ -213,7 +224,7 @@ Demonstrate that FF can be stalled for an extended period.
 473,429,true
 474,429,false
 475,429,true
-476,474,true # After a delay, the `finalized block` starts catching up (`finalized block` height is the height of the `latest block` - 2) 
+476,474,true # After a delay, the `finalized block` starts catching up (`finalized block` height is the height of the `latest block` - 2)
 477,474,false
 478,474,true
 479,477,true
@@ -222,26 +233,28 @@ Demonstrate that FF can be stalled for an extended period.
 482,480,true
 ...
 ```
+
 **Note:** This experiment is probabilistic. The exact data may vary from run to run. However, the observed trend remains consistent: After launching attack 3, the finalized blocks no longer increase in synchronization with the latest blocks, but rather increase in a delayed manner.
 
 ## 💻 Source Code
 
--   BSC base (v1.4.16): [https://github.com/bnb-chain/bsc/tree/v1.4.16](https://github.com/bnb-chain/bsc/tree/v1.4.16)
+- BSC base (v1.4.16): [https://github.com/bnb-chain/bsc/tree/v1.4.16](https://github.com/bnb-chain/bsc/tree/v1.4.16)
 
-	  - attack 1 code : ./code/attack-1-code.zip
-	  - attack 2 code : ./code/attack-2-code.zip
-	  - attack 3 code : ./code/attack-3-bootnode-code.zip
-	  - attack 3 code : ./code/attack-3-staicnode-code.zip
-    
--   Node deployment script: [https://github.com/bnb-chain/node-deploy](https://github.com/bnb-chain/node-deploy)
+  - attack 1 code : ./code/attack-1-code.zip
+  - attack 2 code : ./code/attack-2-code.zip
+  - attack 3 code : ./code/attack-3-bootnode-code.zip
+  - attack 3 code : ./code/attack-3-staicnode-code.zip
+
+- Node deployment script: [https://github.com/bnb-chain/node-deploy](https://github.com/bnb-chain/node-deploy)
 
 ## 📄Appendix
+
 This section outlines the complete manual installation process, including environment setup, dependency installation, and attack execution using raw scripts and source code.
 
 > ⚠️ **Before you begin**, please ensure the following software and system packages are installed on your local machine:
 
 - Ubuntu 20.04/22.04
-- nodejs: 18.20.2 
+- nodejs: 18.20.2
 - npm: 6.14.6
 - go: 1.18+
 - python3: 3.12+
@@ -251,12 +264,16 @@ This section outlines the complete manual installation process, including enviro
 - jq: 1.7
 
 ### Setup steps
+
 1. Unzip and enter the project directory
+
 ```bash
 unzip node-deploy.zip
 cd node-deploy
 ```
+
 2. Create and activate a virtual environment
+
 ```
 # Create the virtual environment (if the venv package is not installed)
 python3 -m venv path/to/venv
@@ -267,7 +284,9 @@ apt install python3.12-venv
 # Activate the virtual environment
 source path/to/venv/bin/activate
 ```
+
 3. Install dependencies
+
 ```
 chmod +x install-dev.sh
 sudo ./install-dev.sh
@@ -275,13 +294,16 @@ pip3 install -r requirements.txt
 ```
 
 4. compile the geth binary, and place it in the node-deploy/bin/ folder
+
 ```bash
-unzip ./code/attack-1-code.zip 
+unzip ./code/attack-1-code.zip
 cd attack-1-code && make geth
 unzip node-deploy.zip
 mv attack-1-code/build/bin/geth node-deploy/bin/geth
 ```
+
 ### Launching attack simulation
+
 1. Start attack
 
 ```bash
@@ -298,7 +320,41 @@ export DELAY_INTERVAL_MS=25 && bash -x ./bsc_cluster.sh reset
 ```bash
 cd query && go run main.go --node=21
 ```
+
 > Notice: The monitoring data will be exported to the query/21.txt file.
 
+## 🐳 Building Docker Images
+
+If you prefer to build the Docker images from source rather than using the prebuilt ones, this section provides instructions for building all attack Docker images locally.
+
+### Build Prerequisites
+
+- Docker Engine: version ≥ **v27.5.1**
+
+### Building Attack 1 Image
+
+```bash
+docker build -t bsc-attack-1 -f docker/attack-1/Dockerfile .
+```
+
+### Building Attack 2 Image
+
+```bash
+docker build -t bsc-attack-2 -f docker/attack-2/Dockerfile .
+```
+
+### Building Attack 3 (Bootnode) Image
+
+```bash
+docker build -t bsc-attack-3-bootnode -f docker/attack-3-bootnode/Dockerfile .
+```
+
+### Building Attack 3 (Static Node) Image
+
+```bash
+docker build -t bsc-attack-3-staticnode -f docker/attack-3-staticnode/Dockerfile .
+```
+
 ## Contribution
+
 - For questions or bug reports, please open a GitHub issue in this repository.
