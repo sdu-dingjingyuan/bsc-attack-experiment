@@ -63,6 +63,8 @@ RUN unzip /app/node-deploy.zip -d /app/ && \
     pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt && \
     . /app/node-deploy/venv/bin/activate 
 
+COPY docker/bsc_cluster.sh /app/node-deploy/bsc_cluster.sh
+
 RUN cd /app/node-deploy && \
     bash -x ./bsc_cluster.sh prepare
 
