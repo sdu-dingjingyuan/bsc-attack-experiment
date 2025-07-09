@@ -337,10 +337,22 @@ If you prefer to build the Docker images from source rather than using the prebu
 docker build -t bsc-attack-1 -f docker/attack-1/Dockerfile .
 ```
 
+if machine is MAC ARM64 , use the following command
+
+```bash
+docker build -t bsc-attack-1 -f docker/attack-1/Dockerfile-arm64 .
+```
+
 ### Building Attack 2 Image
 
 ```bash
 docker build -t bsc-attack-2 -f docker/attack-2/Dockerfile .
+```
+
+if machine is MAC ARM64, use the following command
+
+```bash
+docker build -t bsc-attack-2 -f docker/attack-2/Dockerfile-arm64 .
 ```
 
 ### Building Attack 3 (Bootnode) Image
@@ -349,10 +361,22 @@ docker build -t bsc-attack-2 -f docker/attack-2/Dockerfile .
 docker build -t bsc-attack-3-bootnode -f docker/attack-3-bootnode/Dockerfile .
 ```
 
+if machine is MAC ARM64, use the following command
+
+```bash
+docker build -t bsc-attack-3-bootnode -f docker/attack-3-bootnode/Dockerfile-arm64 .
+```
+
 ### Building Attack 3 (Static Node) Image
 
 ```bash
 docker build -t bsc-attack-3-staticnode -f docker/attack-3-staticnode/Dockerfile .
+```
+
+if machine is MAC ARM64, use the following command
+
+```bash
+docker build -t bsc-attack-3-staticnode -f docker/attack-3-staticnode/Dockerfile-arm64 .
 ```
 
 ## Contribution
