@@ -380,6 +380,8 @@ docker build -t bsc-attack-3-staticnode -f docker/attack-3-staticnode/Dockerfile
 
 ### Running Attacks Using Local Docker Images
 
+When you build Docker images locally, ensure that every subsequent `/docker run/` command references these local images.
+
 ```bash
 touch 1.txt && docker run -it --rm -v ./1.txt:/app/query/21.txt bsc-attack-1
 ```
@@ -393,7 +395,7 @@ touch 3.1.txt && docker run -it --rm -v ./3.1.txt:/app/query/21.txt -e DELAY_INT
 ```
 
 ```bash
-touch 3.1.txt && docker run -it --rm -v ./3.1.txt:/app/query/21.txt -e DELAY_INTERVAL_MS=25 bsc-attack-3-staticnode
+touch 3.2.txt && docker run -it --rm -v ./3.2.txt:/app/query/21.txt -e DELAY_INTERVAL_MS=25 bsc-attack-3-staticnode
 ```
 
 
